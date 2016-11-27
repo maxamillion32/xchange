@@ -1,11 +1,14 @@
 package xchange.itesm.mx.xchange;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,6 +22,12 @@ public class MainActivity extends AppCompatActivity {
 
         //Initialize authentication
         mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+            }
+        };
 
         Intent intent = getIntent();
 
@@ -33,6 +42,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void signOut() {
-        mAuth.signOut();
+        try {
+            mAuth.signOut();
+        } catch (Exception e) {
+            Toast.makeText(this.getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 }
