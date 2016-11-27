@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "516536216054",
+    "firebase_url": "https://movilesfinal-b448c.firebaseio.com",
+    "project_id": "movilesfinal-b448c",
+    "storage_bucket": "movilesfinal-b448c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:516536216054:android:23c634e23342d57d",
+        "android_client_info": {
+          "package_name": "xchange.itesm.mx.xchange"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "516536216054-17dji89e0ml4sh4emo30sivca9o9baoe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsF37neap7mfcb-LfFtriT5InlqFsQIFE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
