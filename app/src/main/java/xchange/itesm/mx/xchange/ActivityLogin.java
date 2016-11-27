@@ -22,8 +22,6 @@ public class ActivityLogin extends AppCompatActivity implements View.OnClickList
 
     private static final String TAG = "EmailPassword";
 
-    private TextView mStatusTextView;
-    private TextView mDetailTextView;
     private EditText mEmailField;
     private EditText mPasswordField;
 
@@ -37,8 +35,6 @@ public class ActivityLogin extends AppCompatActivity implements View.OnClickList
 
         /*Views and buttons*/
         // Views
-        mStatusTextView = (TextView) findViewById(R.id.status);
-        mDetailTextView = (TextView) findViewById(R.id.detail);
         mEmailField = (EditText) findViewById(R.id.field_email);
         mPasswordField = (EditText) findViewById(R.id.field_password);
 
@@ -52,13 +48,6 @@ public class ActivityLogin extends AppCompatActivity implements View.OnClickList
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                } else {
-                    // User is signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-                }
                 // [START_EXCLUDE]
                 updateUI(user);
                 // [END_EXCLUDE]
@@ -102,13 +91,8 @@ public class ActivityLogin extends AppCompatActivity implements View.OnClickList
                             Toast.makeText(ActivityLogin.this, R.string.auth_failed,
                                     Toast.LENGTH_SHORT).show();
                         }
-
-                        // [START_EXCLUDE]
-                        //hideProgressDialog();
-                        // [END_EXCLUDE]
                     }
                 });
-        // [END create_user_with_email]
     }
 
     private void signIn(String email, String password) {
@@ -134,13 +118,10 @@ public class ActivityLogin extends AppCompatActivity implements View.OnClickList
 
                         // [START_EXCLUDE]
                         if (!task.isSuccessful()) {
-                            mStatusTextView.setText(R.string.auth_failed);
+                            Toast.makeText(ActivityLogin.this, "Login Failed", Toast.LENGTH_SHORT).show();
                         }
-                        //hideProgressDialog();
-                        // [END_EXCLUDE]
                     }
                 });
-        // [END sign_in_with_email]
     }
 
     private void signOut() {
@@ -171,7 +152,6 @@ public class ActivityLogin extends AppCompatActivity implements View.OnClickList
     }
 
     private void updateUI(FirebaseUser user) {
-        //hideProgressDialog();
         if (user != null) {
             Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra("username", user.getEmail());
@@ -179,9 +159,6 @@ public class ActivityLogin extends AppCompatActivity implements View.OnClickList
 
             this.startActivity(intent);
         } else {
-            mStatusTextView.setText(R.string.signed_out);
-            mDetailTextView.setText(null);
-
             findViewById(R.id.email_password_buttons).setVisibility(View.VISIBLE);
             findViewById(R.id.email_password_fields).setVisibility(View.VISIBLE);
             findViewById(R.id.sign_out_button).setVisibility(View.GONE);

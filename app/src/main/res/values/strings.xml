@@ -2,6 +2,9 @@
     <string name="app_name">XChange</string>
     <string name="title_activity_login">ActivityLogin</string>
 
+    <!--Items for the application-->
+    <string name="application_name">XChange application logo</string>
+
     <!--Items from firebase-->
     <string name="hint_user_id">User ID</string>
     <string name="get_custom_token">Get Token</string>
