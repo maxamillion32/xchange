@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Product information"
+        android:id="@+id/prodInfo"
+        android:textAlignment="center"
+        android:paddingTop="15dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TableRow>
+        <ImageView
+            android:id="@+id/imgProd"
+            android:layout_weight="0.5"
+            android:layout_height="300dp"/>
+        <TextView
+            android:id="@+id/txtProd"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            android:textAlignment="center"/>
+
+    </TableRow>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="More"
+        android:id="@+id/titleMore"
+        android:padding="15dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+     <TableRow android:layout_width="match_parent">
+         <RelativeLayout android:layout_weight="0.1">
+            <ImageView
+                android:id="@+id/imgUsr"
+                android:maxWidth="150dp"
+                android:layout_height="100dp"
+                android:layout_width="150dp" />
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_below="@id/imgUsr"
+                android:paddingLeft="30dp">
+                <RatingBar
+                    android:id="@+id/ratingBar"
+                    style= "@style/CustomRatingBar"
+                    android:isIndicator="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="18dp"
+                    android:rating="0"
+                    android:stepSize="1.0"
+                    android:numStars="5"/>
+                </LinearLayout>
+         </RelativeLayout>
+         <EditText
+             android:id="@+id/offerToSeller"
+             android:layout_width="wrap_content"
+             android:layout_weight="1"
+             android:layout_height="wrap_content"
+             android:hint="Make an offer"
+             android:inputType="number" />
+         <Button
+             android:layout_width="wrap_content"
+             android:text="Send"
+             android:id="@+id/sendButton"/>
+     </TableRow>
+
+    <Button
+        android:id="@+id/radioButtonConfirmUsr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:visibility="invisible"
+        android:text="Confirm" />
+
+
+
+</TableLayout>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Seller Details"
+        android:id="@+id/sellerDetails"
+        android:textAlignment="center"
+        android:paddingTop="15dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+
+    <TableRow android:layout_width="match_parent">
+            <ImageView
+                android:id="@+id/imgUsrDetails"
+                android:layout_height="200dp"
+                android:layout_width="250dp" />
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_below="@id/imgUsrDetails"
+                android:paddingLeft="30dp">
+                <RatingBar
+                    android:id="@+id/ratingBarDetails"
+                    style= "@style/CustomRatingBar"
+                    android:isIndicator="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="18dp"
+                    android:rating="0"
+                    android:stepSize="1.0"
+                    android:numStars="5"/>
+            </LinearLayout>
+
+    </TableRow>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Contact"
+        android:id="@+id/contactSeller"
+        android:padding="15dp"
+        android:paddingTop="30dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+    <EditText
+        android:id="@+id/msjToSeller"
+        android:layout_width="wrap_content"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:hint="Send a message"
+        android:gravity="top" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Send"
+        android:id="@+id/sendButtonDetails"/>
+
+</TableLayout>
