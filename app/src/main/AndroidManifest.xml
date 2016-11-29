@@ -33,6 +33,9 @@
             android:name=".ActivityLogin"
             android:label="@string/title_activity_login"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".WishList" />
+        <activity android:name=".SellerDetails" />
+        <activity android:name=".ContactSeller"  android:windowSoftInputMode="stateHidden"/>
     </application>
-
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
