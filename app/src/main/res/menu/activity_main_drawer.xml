@@ -6,7 +6,7 @@
             android:id="@+id/nav_cerca"
             android:title="Wish List" />
         <item
-            android:id="@+id/nav_settings"
+            android:id="@+id/nav_products"
             android:title="My products" />
     </group>
 </menu>

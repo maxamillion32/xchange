@@ -1,0 +1,98 @@
+package xchange.itesm.mx.xchange;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+//import com.google.firebase.storage.FirebaseStorage;
+//import com.google.firebase.storage.StorageReference;
+//import com.google.firebase.storage.UploadTask;
+
+public class FragmentProduct extends Fragment {
+    private Context context;
+    private View baseView;
+    private FirebaseAuth mAuth;
+
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+    static final int REQUEST_GALLERY_IMAGE = 2;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        baseView = inflater.inflate(R.layout.fragment_fragment_product, container, false);
+        context = this.getActivity().getBaseContext();
+
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
+
+        return baseView;
+    }
+
+    public void insertNewProduct(Uri file) {
+        String fileName = file.getLastPathSegment();
+        Toast.makeText(context, fileName, Toast.LENGTH_SHORT).show();
+        //FirebaseStorage storage = FirebaseStorage.getInstance();
+    }
+
+    public void takePhoto(View v) {
+        if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)){
+            // this device has a camera
+            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            if (takePictureIntent.resolveActivity(context.getPackageManager()) != null) {
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            }
+        } else {
+            // no camera on this device
+            Toast.makeText(context, "Cannot initiate camera", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void getPhotoGallery(View v) {
+        Intent intent = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, REQUEST_GALLERY_IMAGE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
+            Uri selectedImage = data.getData();
+            insertNewProduct(selectedImage);
+            /*Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+
+            ImageView mImageView = (ImageView) baseView.findViewById(R.id.actualPicture);
+            mImageView.setImageBitmap(imageBitmap);*/
+        } else if (requestCode == REQUEST_GALLERY_IMAGE && resultCode == Activity.RESULT_OK) {
+            try {
+                Uri selectedImage = data.getData();
+                insertNewProduct(selectedImage);
+                /*String[] filePathColumn = { MediaStore.Images.Media.DATA };
+                Cursor cursor = context.getContentResolver().query(selectedImage,filePathColumn, null, null, null);
+                cursor.moveToFirst();
+                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                String picturePath = cursor.getString(columnIndex);
+                cursor.close();
+                ImageView imageView = (ImageView) baseView.findViewById(R.id.actualPicture);
+                imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));*/
+            } catch (Exception e) {
+                Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+}
