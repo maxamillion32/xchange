@@ -43,11 +43,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         };
 
-        Intent intent = getIntent();
 
         initializeToolbar();
         initializeDrawer();
-        //initializeFragment();
+        initializeFragment();
     }
 
     protected void signOut() {
