@@ -75,9 +75,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_products:
                 fragmentClass = FragmentProduct.class;
                 break;
-            case R.id.nav_wish:
-                fragmentClass = FragmentProduct.class;
-                break;
+            //case R.id.nav_wish:
+            //    fragmentClass = FragmentProduct.class;
+            //   break;
             case R.id.nav_explore:
                 fragmentClass = FragmentExplore.class;
                 break;
