@@ -70,7 +70,7 @@ public class FragmentProfile extends Fragment {
         mFirebaseDatabaseReference.child("Users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                
+
                 try{
                     for (DataSnapshot userSnap : dataSnapshot.getChildren()) {
                         User userObj = userSnap.getValue(User.class);
