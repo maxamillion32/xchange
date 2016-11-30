@@ -112,10 +112,10 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
+        android:visibility="gone"
         android:theme="@style/ThemeOverlay.MyDarkButton"
         android:layout_centerHorizontal="true"
         android:text="Update"
-        android:onClick="updateInformation"
         />
 
 </RelativeLayout>
