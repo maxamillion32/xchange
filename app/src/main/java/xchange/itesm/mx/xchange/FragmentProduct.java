@@ -68,7 +68,7 @@ public class FragmentProduct extends Fragment {
 
         mId = Settings.Secure.getString(getActivity().getContentResolver(), Settings.Secure.ANDROID_ID);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        //mRecyclerView.setItemAnimator(new SlideInOutLeftItemAnimator(mRecyclerView));
+
         mAdapter = new AdapterSellerProduct(context,mProducts);
         mRecyclerView.setAdapter(mAdapter);
 
@@ -76,12 +76,6 @@ public class FragmentProduct extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
 
-//        mAuthListener = new FirebaseAuth.AuthStateListener() {
-//            @Override
-//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-//                user = firebaseAuth.getCurrentUser();
-//            }
-//        };
         user = mAuth.getCurrentUser();
 
         mFirebaseDatabaseReference.child("Products").addValueEventListener(new ValueEventListener() {
@@ -127,7 +121,6 @@ public class FragmentProduct extends Fragment {
     public void insertNewProduct(Uri file) {
         String fileName = file.getLastPathSegment();
         Toast.makeText(context, fileName, Toast.LENGTH_SHORT).show();
-        //FirebaseStorage storage = FirebaseStorage.getInstance();
     }
 
     public void takePhoto(View v) {
@@ -162,14 +155,7 @@ public class FragmentProduct extends Fragment {
             try {
                 Uri selectedImage = data.getData();
                 insertNewProduct(selectedImage);
-                /*String[] filePathColumn = { MediaStore.Images.Media.DATA };
-                Cursor cursor = context.getContentResolver().query(selectedImage,filePathColumn, null, null, null);
-                cursor.moveToFirst();
-                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                String picturePath = cursor.getString(columnIndex);
-                cursor.close();
-                ImageView imageView = (ImageView) baseView.findViewById(R.id.actualPicture);
-                imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));*/
+
             } catch (Exception e) {
                 Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
             }

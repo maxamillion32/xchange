@@ -7,7 +7,9 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp">
 
         <!--GridLayout that contains all the products registered-->
         <ScrollView
@@ -36,8 +38,8 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/buttonAddProduct"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@android:drawable/ic_input_add"
