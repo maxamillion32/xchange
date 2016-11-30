@@ -58,23 +58,15 @@ public class AdapterSellerProduct extends RecyclerView.Adapter<AdapterSellerProd
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v;
 
-//        if (viewType == CHAT_RIGHT) {
         v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.rv_product_seller, parent, false);
-//        } else {
-//            v = LayoutInflater.from(parent.getContext())
-//                    .inflate(R.layout.list_item_chat_left, parent, false);
-//        }
 
         return new ViewHolder(v);
     }
 
     @Override
     public int getItemViewType(int position) {
-//        if (mDataSet.get(position).getId().equals(mId))
-            return CHAT_RIGHT;
-
-//        return CHAT_LEFT;
+        return CHAT_RIGHT;
     }
 
     @Override

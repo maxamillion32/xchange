@@ -8,18 +8,24 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/loginButton">
+
+        <ImageView
+            android:id="@+id/iconUser"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="40dp"
+            android:src="@drawable/userimage"/>
         <TextView
+            android:id="@+id/menuTitle"
+            android:layout_below="@+id/iconUser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Carteguia"
-            android:textSize="20sp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="12dp"
-            android:layout_marginBottom="12dp"
-            android:layout_marginStart="12dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:visibility="gone"
+            android:layout_marginTop="5dp"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
             />
 
     </RelativeLayout>
