@@ -77,7 +77,7 @@ public class AdapterSellerProduct extends RecyclerView.Adapter<AdapterSellerProd
     public void onBindViewHolder(ViewHolder holder, int position) {
         Product product = mDataSet.get(position);
         holder.title.setText(product.getTitle());
-        holder.price.setText(product.getPrice());
+        holder.price.setText("$"+product.getPrice());
         holder.description.setText(product.getDescription());
         if(!product.getImagePath().equals(""))
             Picasso.with(context).load(product.getImagePath()).resize(100,100).centerCrop().into(holder.productImage);
