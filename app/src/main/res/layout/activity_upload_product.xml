@@ -51,8 +51,9 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginTop="10dp"
-        android:hint="Title"
+        android:hint="Título"
         android:textSize="20dp"
+        android:gravity="center"
         android:layout_below="@+id/layoutButtons"/>
 
     <EditText
@@ -62,9 +63,10 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginTop="10dp"
-        android:hint="Price"
+        android:hint="Precio"
         android:inputType="number"
         android:textSize="20dp"
+        android:gravity="center"
         android:layout_below="@+id/Title"/>
 
     <EditText
@@ -76,8 +78,9 @@
         android:layout_marginTop="10dp"
         android:maxLines="5"
         android:minLines="2"
-        android:hint="Description"
+        android:hint="Descripción"
         android:textSize="20dp"
+        android:gravity="center"
         android:layout_below="@+id/Price"/>
 
     <Button
@@ -86,7 +89,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:layout_centerHorizontal="true"
-        android:text="Upload"
+        android:text="Cargar"
         android:layout_below="@id/Description"
         android:background="@color/loginButton"
         android:onClick="uploadProduct"

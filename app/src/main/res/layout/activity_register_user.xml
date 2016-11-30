@@ -31,7 +31,7 @@
             android:layout_weight="1"
             android:layout_marginRight="5dp"
             android:layout_marginLeft="5dp"
-            android:hint="Username"
+            android:hint="Nombre de usuario"
             android:textAlignment="center"/>
 
         <EditText
@@ -41,7 +41,7 @@
             android:layout_weight="1"
             android:layout_marginRight="5dp"
             android:layout_marginLeft="5dp"
-            android:hint="Full Name"
+            android:hint="Nombre completo"
             android:textAlignment="center"/>
 
     </LinearLayout>
@@ -57,7 +57,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="Phone"
+            android:hint="Teléfono"
             android:inputType="number"
             android:textAlignment="center"
             android:layout_gravity="center_horizontal"/>
@@ -81,7 +81,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="5dp"
         android:layout_marginLeft="5dp"
-        android:hint="Address"
+        android:hint="Dirección"
         android:textAlignment="center"/>
 
     <EditText
@@ -93,7 +93,7 @@
         android:minLines="3"
         android:layout_marginRight="5dp"
         android:layout_marginLeft="5dp"
-        android:hint="Description"
+        android:hint="Descripción"
         android:textAlignment="center"/>
 
     <Button
@@ -104,7 +104,7 @@
         android:layout_marginTop="50dp"
         android:theme="@style/ThemeOverlay.MyDarkButton"
         android:layout_centerHorizontal="true"
-        android:text="Update"
+        android:text="Actualizar"
         />
     <Button
         android:id="@+id/updateUser"
@@ -115,7 +115,7 @@
         android:visibility="gone"
         android:theme="@style/ThemeOverlay.MyDarkButton"
         android:layout_centerHorizontal="true"
-        android:text="Update"
+        android:text="Actualizar"
         />
 
 </RelativeLayout>

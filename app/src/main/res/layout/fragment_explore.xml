@@ -36,7 +36,7 @@
                 android:id="@+id/current_image"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
-                android:src="@color/colorAccent"
+                android:src="@color/white"
                 android:layout_gravity="center_horizontal"
                 />
 
@@ -55,6 +55,7 @@
                 android:layout_width="match_parent"
                 android:weightSum="1"
                 android:orientation="horizontal"
+                android:layout_marginTop="80dp"
                 android:layout_height="wrap_content">
                 <LinearLayout
                     android:layout_width="0dp"
@@ -70,7 +71,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
                     android:id="@+id/button_reject"
-                    android:text="Reject"
+                    android:text="Rechazar"
                     android:textSize="12sp"
                     android:textStyle="bold"
                     android:textColor="#ffffff"
@@ -78,16 +79,16 @@
                     android:background="#ff0000"/>
 
                     <Button
-                    android:id="@+id/button_like"
+                        android:id="@+id/button_like"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
-                    android:text="LIKE"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:textColor="#ffffff"
-                    android:textAlignment="center"
-                    android:background="@color/loginButton"/>
+                        android:text="Me gusta"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="#ffffff"
+                        android:textAlignment="center"
+                        android:background="@color/loginButton" />
 
                 </LinearLayout>
 
@@ -100,22 +101,32 @@
                     android:orientation="horizontal"
                     android:layout_height="wrap_content">
 
-                    <EditText
-                        android:layout_weight="0.7"
+                    <TextView
+                        android:id="@+id/priceSymbol"
+                        android:layout_weight="0.1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:id="@+id/edit_bid"
+                        android:text="$"
+                        android:textSize="20dp"/>
+
+                    <EditText
+                        android:layout_weight="0.5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:id="@+id/edit_bid"
                     />
                     <Button
-                        android:layout_weight="0.3"
+                        android:layout_weight="0.4"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                    android:id="@+id/button_accept"
-                    android:textStyle="bold"
-                    android:textColor="#ffffff"
-                    android:background="#00ff00"
-                    android:textAlignment="center"/>
+                        android:id="@+id/button_accept"
+                        android:textStyle="bold"
+                        android:textColor="#ffffff"
+                        android:text="Ofertar"
+                        android:textSize="12dp"
+                        android:background="#00ff00"
+                        android:textAlignment="center"/>
 
 
                 </LinearLayout>

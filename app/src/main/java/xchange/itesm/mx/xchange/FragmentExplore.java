@@ -185,8 +185,6 @@ public class FragmentExplore extends Fragment {
                             Product p = mProducts.get((Integer) remove.get(i));
                             mProducts.remove(p);
                         }
-//                        mRecyclerView.scrollToPosition(0);
-//                        mAdapter.notifyItemInserted(0);
                     } catch (Exception ex) {
                         Log.e("TAG1", ex.getMessage());
 
