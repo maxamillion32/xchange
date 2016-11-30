@@ -20,6 +20,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -53,8 +55,11 @@ public class FragmentExplore extends Fragment {
     private AdapterCustomerProducts mAdapter;
     private String mId;
     private int currentIndex;
+    private String currentKey;
     private ImageView currentImage;
-
+    private EditText editBid;
+    private TextView productName, productDescription, noProducts;
+    private ScrollView scrollView;
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int REQUEST_GALLERY_IMAGE = 2;
@@ -65,8 +70,13 @@ public class FragmentExplore extends Fragment {
         baseView = inflater.inflate(R.layout.fragment_explore, container, false);
         context = this.getActivity().getBaseContext();
 
-
         currentImage = (ImageView)baseView.findViewById(R.id.current_image);
+        productDescription = (TextView) baseView.findViewById(R.id.product_description);
+        productName = (TextView) baseView.findViewById(R.id.product_name);
+        editBid = (EditText) baseView.findViewById(R.id.edit_bid);
+
+        scrollView = (ScrollView)baseView.findViewById(R.id.scroll);
+        noProducts = (TextView)baseView.findViewById(R.id.no_products);
 //        mRecyclerView = (RecyclerView) baseView.findViewById(R.id.rvProducts);
         mProducts = new ArrayList<>();
         mVisits = new ArrayList<>();
@@ -99,7 +109,7 @@ public class FragmentExplore extends Fragment {
                         mVisits.add(model);
                     }
                 }
-                getProducts();
+                getProducts(baseView);
             }
 
             @Override
@@ -108,11 +118,46 @@ public class FragmentExplore extends Fragment {
             }
         });
 
+        setListeners(baseView);
+
 
         return baseView;
     }
 
-    public void getProducts(){
+    public void setListeners(final View baseView){
+        baseView.findViewById(R.id.button_accept).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int cbid = Integer.valueOf(editBid.getText().toString());
+                if(cbid > 0){
+                    registerVisit(mProducts.get(currentIndex),user,cbid,true);
+                    Toast.makeText(context,"Apuesta aceptada",Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(context,"La apuesta debe ser mayor a 0",Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        baseView.findViewById(R.id.button_like).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                registerVisit(mProducts.get(currentIndex),user,0,true);
+                Toast.makeText(context,"Te ha gustado el producto",Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+        baseView.findViewById(R.id.button_reject).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                registerVisit(mProducts.get(currentIndex),user,0,false);
+                Toast.makeText(context,"Producto Rechazado",Toast.LENGTH_LONG).show();
+
+            }
+        });
+    }
+
+    public void getProducts(final View base){
         mFirebaseDatabaseReference.child("Products").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -140,22 +185,20 @@ public class FragmentExplore extends Fragment {
                             Product p = mProducts.get((Integer) remove.get(i));
                             mProducts.remove(p);
                         }
-                        if(currentIndex == 0){
-                            if(mProducts.size() > 0){
-                                Product model = mProducts.get(currentIndex);
-                                Picasso.with(context).load(model.getImagePath()).into(currentImage);
-                                DatabaseReference visits = mFirebaseDatabaseReference.child("Visits");
-                                String key = visits.push().getKey();
-                                registerVisit(key, model, user);
-                                currentIndex ++;
-                            }
-                        }
-
 //                        mRecyclerView.scrollToPosition(0);
 //                        mAdapter.notifyItemInserted(0);
                     } catch (Exception ex) {
                         Log.e("TAG1", ex.getMessage());
 
+                    }
+
+                    if(currentIndex == 0){
+                        if(mProducts.size() > 0){
+                            updateUI(mProducts.get(0));
+                        }else{
+                            scrollView.setVisibility(View.GONE);
+                            noProducts.setVisibility(View.VISIBLE);
+                        }
                     }
                 }
             }
@@ -167,18 +210,40 @@ public class FragmentExplore extends Fragment {
         });
     }
 
-    public void registerVisit(String key, Product model, FirebaseUser user) {
-
+    public void registerVisit(Product model, FirebaseUser user,int bid,boolean like) {
+        DatabaseReference visits = mFirebaseDatabaseReference.child("Visits");
+        currentKey = visits.push().getKey();
         String ukey = user.getUid();
         String pkey = model.getId();
 
-        Visit visit = new Visit(ukey,pkey,0,false);
+        Visit visit = new Visit(ukey, pkey, bid, like);
 
         try {
-            mFirebaseDatabaseReference.child("Visits").child(key).setValue(visit);
+            mFirebaseDatabaseReference.child("Visits").child(currentKey).setValue(visit);
 
-        } catch(Exception e) {
+        } catch (Exception e) {
             Toast.makeText(context, "Upload error", Toast.LENGTH_SHORT).show();
+
         }
+
+        currentIndex++;
+        if(currentIndex >= mProducts.size()){
+            scrollView.setVisibility(View.GONE);
+            noProducts.setVisibility(View.VISIBLE);
+        }else{
+            updateUI(mProducts.get(currentIndex));
+        }
+
+    }
+
+    public void updateUI(Product model) {
+        scrollView.setVisibility(View.VISIBLE);
+        noProducts.setVisibility(View.GONE);
+        editBid.setHint(String.valueOf(model.getPrice()));
+//        ((EditText)getActivity().findViewById(R.id.edit_bid)).setHint(model.getPrice());
+        productName.setText(model.getTitle());
+        productDescription.setText(model.getDescription());
+        Picasso.with(context).load(model.getImagePath()).into(currentImage);
+        editBid.setText("");
     }
 }
