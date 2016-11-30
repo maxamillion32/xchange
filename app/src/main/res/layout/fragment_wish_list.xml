@@ -13,7 +13,7 @@
         <ScrollView
             android:id="@+id/allProducts"
             android:layout_width="match_parent"
-            android:layout_height="400dp">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -34,13 +34,13 @@
 
     </RelativeLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/buttonAddProduct"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_input_add"
-        app:backgroundTint="@color/loginButton" />
+    <!--<android.support.design.widget.FloatingActionButton-->
+    <!--android:id="@+id/buttonAddProduct"-->
+    <!--android:layout_width="70dp"-->
+    <!--android:layout_height="70dp"-->
+    <!--android:layout_gravity="bottom|end"-->
+    <!--android:layout_margin="@dimen/fab_margin"-->
+    <!--app:srcCompat="@android:drawable/ic_input_add"-->
+    <!--app:backgroundTint="@color/loginButton" />-->
 
 </FrameLayout>

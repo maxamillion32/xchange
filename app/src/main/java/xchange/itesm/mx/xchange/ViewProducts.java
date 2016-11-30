@@ -83,7 +83,7 @@ public class ViewProducts extends AppCompatActivity {
                 }else {
                     Visits visits = new Visits(user.getUid(), keys[a], false, 0, "In progress");
                     try {
-                        mFirebaseDatabaseReference.child("Users").child(key).setValue(visits);
+                        mFirebaseDatabaseReference.child("Visits").child(key).setValue(visits);
 
                     } catch (Exception e) {
                     }

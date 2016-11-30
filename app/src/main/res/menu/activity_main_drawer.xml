@@ -3,17 +3,20 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_cerca"
-            android:title="Wish List" />
+            android:id="@+id/nav_explore"
+            android:title="Explorar Productos" />
+        <item
+            android:id="@+id/nav_wish"
+            android:title="Lista de deseos" />
         <item
             android:id="@+id/nav_products"
-            android:title="My products" />
+            android:title="Mis Productos" />
         <item
             android:id="@+id/see_products"
             android:title="See products" />
         <item
             android:id="@+id/update_user"
-            android:title="Settings" />
+            android:title="Mi perfil" />
         <item
             android:id="@+id/logout"
             android:title="Logout" />

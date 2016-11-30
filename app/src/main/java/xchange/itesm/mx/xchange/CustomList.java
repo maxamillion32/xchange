@@ -16,19 +16,17 @@ import com.squareup.picasso.Picasso;
 public class CustomList extends ArrayAdapter<String>{
     private final Activity context;
     private final String[] web;
-    private final int[] cost;
+    private final long[] cost;
     private int[] offerWishList;
-    private boolean[] sellerAccepted;
-    private String[] confirmDone;
+    private String[] status;
 
-    public CustomList(Activity context, String[] web, int[] cost, int[] offerWish, boolean[] sellerAccepted,String[]confirmDone) {
+    public CustomList(Activity context, String[] web, long[] cost, int[] offerWish, String[] status) {
         super(context, R.layout.list_adapter, web);
         this.context = context;
         this.web = web;
         this.cost = cost;
         this.offerWishList=offerWish;
-        this.sellerAccepted=sellerAccepted;
-        this.confirmDone=confirmDone;
+        this.status=status;
     }
     @Override
     public View getView(int position, View view, ViewGroup parent) {
@@ -36,9 +34,7 @@ public class CustomList extends ArrayAdapter<String>{
         View rowView= inflater.inflate(R.layout.list_adapter, null, true);
         TextView txtTitle = (TextView) rowView.findViewById(R.id.txt);
         txtTitle.setText("$"+cost[position]+"\n Offered: $"+offerWishList[position]);
-        if (sellerAccepted[position]==true){
-            txtTitle.setText("$"+cost[position]+"\n Offered: $"+offerWishList[position]+"\n"+confirmDone[position]);
-        }
+            txtTitle.setText("$"+cost[position]+"\n Offered: $"+offerWishList[position]+"\n"+status[position]);
 
         ImageView imageView = (ImageView) rowView.findViewById(R.id.img);
         Picasso.with(context).load(web[position]).into(imageView);

@@ -41,31 +41,28 @@ public class ContactSeller extends AppCompatActivity {
         Picasso.with(context).load(data.getArticle()[position]).into(imageView);
         txtV.setText(data.getDescription()[position]);
         if(data.getOfferWishList()[position]!=0) {
-            if (data.getSellerAccepted()[position]==true){
+            if (data.getStatus()[position]=="Accepted"){
                 //disable edittext for making offers
                 editText.setFocusable(false);
                 radioButton.setVisibility(View.VISIBLE);
-                if(data.getConfirmDone()[position]=="DONE"){
                     radioButton.setText("Match Complete!");
-                }
-                else {
-                    radioButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            radioButton.setVisibility(View.INVISIBLE);
-                            data.updateConfirmDone(position, "DONE");
-                            Toast.makeText(ContactSeller.this, data.getConfirmDone()[position], Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(ContactSeller.this, WishList.class);
-                            startActivity(intent);
 
-                        }
-                    });
-                }
+            }else {
+                radioButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                    radioButton.setVisibility(View.INVISIBLE);
+                    Toast.makeText(ContactSeller.this, data.getStatus()[position], Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(ContactSeller.this, WishList.class);
+                    startActivity(intent);
+
+                    }
+                });
             }
         }
         int seller=data.whosSeller(position);
         Picasso.with(context).load(data.getUsers()[seller]).into(imageViewUsr);
-        ratingBar.setRating(data.getStars()[seller]);
+        ratingBar.setRating((float) data.getStars()[seller]);
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

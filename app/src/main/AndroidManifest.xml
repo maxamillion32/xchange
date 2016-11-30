@@ -20,9 +20,11 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SplashScreen"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,15 +35,39 @@
         <activity
             android:name=".ActivityLogin"
             android:label="@string/title_activity_login"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+<<<<<<< HEAD
         <activity android:name=".WishList" />
         <activity android:name=".ViewProducts" />
         <activity android:name=".SellerDetails" />
+=======
+        <activity
+            android:name=".WishList"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SellerDetails"
+            android:screenOrientation="portrait" />
+>>>>>>> origin/master
         <activity
             android:name=".ContactSeller"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".UploadProduct" />
-        <activity android:name=".RegisterUser"></activity>
+        <activity
+            android:name=".UploadProduct"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".RegisterUser"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivitySellerProductDetail"
+            android:label="@string/title_activity_seller_product_detail"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ActivityCustomerProduct"
+            android:label="@string/title_activity_customer_product"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

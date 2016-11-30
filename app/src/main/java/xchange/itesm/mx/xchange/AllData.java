@@ -1,68 +1,160 @@
 package xchange.itesm.mx.xchange;
 
 
+import android.support.annotation.NonNull;
+import android.util.Log;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Created by Ciria on 27/11/2016.
  */
 public class AllData {
     //All data is about articles in the wishList
-    private int cost[];                 //cost proposed by seller
-    private String[] article;           //article url for images
-    private String[] description;       //description of articles
-    private String[] users;             //url of user image
-    private int[] stars;                 //star of users
-    private String msj;                 //Message sent from user to seller
+    private Hashtable <String,String>wishProds=new Hashtable<String,String>();
+    private long cost[]=new long[100];                 //cost proposed by seller
+    private String[] article=new String[100];           //article url for images
+    private String[] description=new String[100] ;       //description of articles
+    private String[] users=new String[100];             //url of user image
+    private double[] stars=new double[100];                 //star of users
     private Hashtable <Integer,Integer>art_seller=new Hashtable<Integer,Integer>();     //relate article with seller
     private int offer=0;                //amount ($) the user offers for the product
     private int[] offerWishList;        //amount ($) the user have offer for all the products in wish list
-    private boolean[] sellerAccepted;
-    private String[] confirmDone;
+    private String[] status;
+    int size=0;
+
+    private DatabaseReference mFirebaseDatabaseReference;
+    FirebaseUser userb;
 
 
-    public void refreshAllData(){
-        if ()
+    public void updateDataProds(final Hashtable wishProds){
+        final Iterator <Map.Entry<String,String>> it= wishProds.entrySet().iterator();
+        while (it.hasNext()){
+            mFirebaseDatabaseReference.child("Products").addValueEventListener(new ValueEventListener() {
+            int a=0;
+                String usrKey;
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for(DataSnapshot prodObj: dataSnapshot.getChildren()){
+                        Product prod= prodObj.getValue(Product.class);
+                        Map.Entry<String,String> entry=it.next();
+                        if (prod.getId()==entry.getValue()){
+                            usrKey=prod.getSellerKey();
+                            updateDataUsers(usrKey,a);
+                            users[a]="https://support.plymouth.edu/kb_images/Yammer/default.jpeg";
+                            article[a]=prod.getImagePath();
+                            cost[a]=prod.getPrice();
+                            art_seller.put(a,a);
+                            description[a]=prod.getDescription();
+                            a++;
+                        }
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+    }
+    public void updateDataUsers(final String usrKey, final int a){
+            mFirebaseDatabaseReference.child("Users").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for(DataSnapshot userObj: dataSnapshot.getChildren()){
+                        User user= userObj.getValue(User.class);
+                        if (user.getUserId()==usrKey){
+                            stars[a]=user.rating;
+                        }
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
     }
 
+    /*public void updateOfferDB(int offer) {
+        //Initialize authentication
+
+        FirebaseAuth mAuth= FirebaseAuth.getInstance();
+        FirebaseAuth.AuthStateListener mAuthListener;
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                userb = firebaseAuth.getCurrentUser();
+            }
+        };
+
+
+        mFirebaseDatabaseReference.child("Users").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot userObj: dataSnapshot.getChildren()){
+                    User useraaa= userObj.getValue(User.class);
+                    if (useraaa.getUserId()==userb.getUid()){
+                        mFirebaseDatabaseReference.child("Users").child()
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }*/
+
+
     public AllData(){
-        refreshAllData();
-        cost=new int[]{7500,13200,750,590};
-        article= new String[]{
-                "https://images-na.ssl-images-amazon.com/images/I/51OwBkohn2L._SX425_.jpg",     //bicycle
-                "https://katespade.insnw.net/KateSpade/143403NB_667?$large$",                   //sofa
-                "https://katespade.insnw.net/KateSpade/S743007MU_786?$large$",                  //shoes
-                "http://s7d4.scene7.com/is/image/KateSpade/WBRUD474_974?$large$"                //bracelet
-        };
-        description=new String[]{
-                "NICE BICYCLE",
-                "PINK SOFA",
-                "AMAZING SHOES",
-                "STUNNING BRACELET"
-        };
+        mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
+        mFirebaseDatabaseReference.child("Visit").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                try {
+                    size=0;
+                    for (DataSnapshot visitObj : dataSnapshot.getChildren()) {
+                        Visit visitas = visitObj.getValue(Visit.class);
+                        if (visitas.getLike()) {
+                            wishProds.put(visitas.getId(), visitas.getProductKey());
+                            offerWishList[size]=visitas.getBid();
+                            status[size]=visitas.getStatus();
+                            size++;
+                        }
+                    }
 
-        users=new String[]{
-                "http://www.uni-regensburg.de/Fakultaeten/phil_Fak_II/Psychologie/Psy_II/beautycheck/english/durchschnittsgesichter/m(01-32)_gr.jpg", //Man
-                "http://www.tattooset.com/images/tattoo/2013/01/25/15120-pinterest-tattoos_large.jpg",                                                //young woman
-                "https://s-media-cache-ak0.pinimg.com/236x/f9/c4/0e/f9c40e3544fe9d1a8ee8db6525c2895a.jpg",                                            //woman
-                "http://muyuela.com/wp-content/uploads/2014/07/Hairstyles-For-Young-Men-3.jpg"                                                        //young man
-        };
+                    updateDataProds(wishProds);
 
-        stars=new int[]{3, 1, 5, 4};
-        art_seller.put(0,3);
-        art_seller.put(1,2);
-        art_seller.put(2,1);
-        art_seller.put(3,0);
+                } catch (Exception e) {
+                }
 
-        offerWishList=new int[]{0,50,100,900};
-        sellerAccepted=new boolean[] {false,false,true,true};
-        confirmDone=new String[]{
-                "Seller has accepted your offer. Confirm now!",
-                "Seller has accepted your offer. Confirm now!",
-                "Seller has accepted your offer. Confirm now!",
-                "DONE"
-        };
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     //this method receives the index of the article selected and seeks for the seller in the hastable
@@ -82,13 +174,11 @@ public class AllData {
         offerWishList[position]=offer;
         setOffer(offer);
     }
-    public void updateConfirmDone(int position, String status){
-        confirmDone[position]=status;
-    }
-    public int[] getCost() {
+
+    public long[] getCost() {
         return cost;
     }
-    public void setCost(int[] cost) {
+    public void setCost(long[] cost) {
         this.cost = cost;
     }
 
@@ -106,10 +196,10 @@ public class AllData {
         this.description = description;
     }
 
-    public int[] getStars() {
+    public double[] getStars() {
         return stars;
     }
-    public void setStars(int[] stars) {
+    public void setStars(double[] stars) {
         this.stars = stars;
     }
 
@@ -120,15 +210,10 @@ public class AllData {
         this.users = users;
     }
 
-    public String getMsj() {
-        return msj;
-    }
-    public void setMsj(String msj) {
-        this.msj = msj;
-    }
-
     public void setOffer(int offer) {
+        //updateOfferDB(offer);
         this.offer=offer;
+        Log.i("INFOOOOO", "MISSING TO UPDATE VALUE IN DB");
     }
     public int getOffer() {
         return offer;
@@ -141,17 +226,11 @@ public class AllData {
         this.offerWishList = offerWishList;
     }
 
-    public boolean[] getSellerAccepted() {
-        return sellerAccepted;
-    }
-    public void setSellerAccepted(boolean[] sellerAccepted) {
-        this.sellerAccepted = sellerAccepted;
+    public String[] getStatus() {
+        return status;
     }
 
-    public String[] getConfirmDone() {
-        return confirmDone;
-    }
-    public void setConfirmDone(String[] confirmDone) {
-        this.confirmDone = confirmDone;
+    public void setStatus(String[] status) {
+        this.status = status;
     }
 }

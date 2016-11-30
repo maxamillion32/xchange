@@ -8,10 +8,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
 
 
 /**
@@ -19,7 +16,6 @@ import com.google.firebase.database.ValueEventListener;
  */
 public class WishList extends AppCompatActivity{
     ListView list;
-    private DatabaseReference mFirebaseDatabaseReference;
     AllData dataL=new AllData();
 
 
@@ -28,7 +24,7 @@ public class WishList extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wish_list);
 
-        CustomList adapter = new CustomList(WishList.this, dataL.getArticle(), dataL.getCost(), dataL.getOfferWishList(), dataL.getSellerAccepted(),dataL.getConfirmDone());
+        CustomList adapter = new CustomList(WishList.this, dataL.getArticle(), dataL.getCost(), dataL.getOfferWishList(), dataL.getStatus());
         list = (ListView)findViewById(R.id.list);
         list.setAdapter(adapter);
 
@@ -42,18 +38,5 @@ public class WishList extends AppCompatActivity{
             }
         });
 
-        mFirebaseDatabaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                dataL.
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        }){
-
-        }
     }
 }
