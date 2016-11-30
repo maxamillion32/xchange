@@ -1,6 +1,9 @@
 package xchange.itesm.mx.xchange;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -110,6 +113,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setTitle("XChange");
+            toolbar.setTitleTextColor(Color.WHITE);
         }
     }
 
