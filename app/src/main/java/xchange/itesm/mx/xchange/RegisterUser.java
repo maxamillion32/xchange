@@ -31,6 +31,8 @@ public class RegisterUser extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_user);
 
+        Toast.makeText(this.getApplicationContext(), "Entrando a oncreate", Toast.LENGTH_SHORT).show();
+
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
         user = mAuth.getCurrentUser();
@@ -38,10 +40,21 @@ public class RegisterUser extends AppCompatActivity {
         mFirebaseDatabaseReference.child("Users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                Toast.makeText(RegisterUser.this, "On data change", Toast.LENGTH_SHORT).show();
                 try{
                     for (DataSnapshot userSnap : dataSnapshot.getChildren()) {
                         User userObj = userSnap.getValue(User.class);
                         if(userObj.getUserId().equals(user.getUid())) {
+                            String userId = userObj.getUserId();
+                            String userName = userObj.getUserName();
+                            String name = userObj.getName();
+                            String phone = userObj.getPhone();
+                            double rating = userObj.getRating();
+                            String address = userObj.getAddress();
+                            String description = userObj.getDescription();
+
+                            fillUserInformation(userId, userName, name, phone, rating, address, description);
+                            Toast.makeText(RegisterUser.this, "Desplegando información", Toast.LENGTH_SHORT).show();
                             break;
                         }
                     }
@@ -58,6 +71,28 @@ public class RegisterUser extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void fillUserInformation(String userId, String userName, String name, String phone, double rating, String address, String description) {
+        EditText editName = (EditText)findViewById(R.id.userName);
+        EditText fullName = (EditText)findViewById(R.id.fullName);
+        EditText userPhone = (EditText)findViewById(R.id.userPhone);
+        EditText userRating = (EditText)findViewById(R.id.userRating);
+        EditText userAddress = (EditText)findViewById(R.id.userAddress);
+        EditText userDescription = (EditText)findViewById(R.id.userDescription);
+
+        editName.setText(userName);
+        fullName.setText(name);
+        userPhone.setText(phone);
+        userRating.setText("Rating: " + rating);
+        userRating.setVisibility(View.VISIBLE);
+        userAddress.setText(address);
+        userDescription.setText(description);
+
+    }
+
+    public void updateInformation(View v) {
+        //TODO update user information
     }
 
     public void updateUser(View v) {
