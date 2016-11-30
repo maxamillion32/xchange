@@ -5,17 +5,19 @@ package xchange.itesm.mx.xchange;
  */
 
 public class Product {
-    public String name;
+    public String title;
     public int price;
-    public String seller;
+    public String sellerKey;
+    public String description;
+    public String imagePath;
+    public String status;
 
-    public Product() {
-
-    }
-
-    public Product(String name, int price, String seller) {
-        this.name = name;
+    public Product(String title, int price, String sellerKey, String description, String imagePath, String status) {
+        this.title = title;
         this.price = price;
-        this.seller = seller;
+        this.sellerKey = sellerKey;
+        this.description = description;
+        this.imagePath = imagePath;
+        this.status = status;
     }
 }
