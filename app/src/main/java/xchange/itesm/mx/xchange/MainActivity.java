@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.view_products);
 
         //Initialize authentication
         mAuth = FirebaseAuth.getInstance();
@@ -72,6 +72,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch(id) {
             case R.id.nav_products:
                 fragmentClass = FragmentProduct.class;
+                break;
+            case R.id.see_products:
+                fragmentClass=ViewProducts.class;
+                break;
+            case R.id.nav_cerca:
+                fragmentClass=WishList.class;
                 break;
             case R.id.logout:
                 signOut();

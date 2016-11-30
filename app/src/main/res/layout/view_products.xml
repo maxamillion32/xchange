@@ -1,6 +1,55 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="xchange.itesm.mx.xchange.ViewProducts">
 
-</LinearLayout>
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+        <TableRow>
+            <ImageView
+                android:layout_weight="0.5"
+                android:id="@+id/prevView"
+                android:src="@drawable/sliderprev"
+                android:layout_width="60dp"
+                android:layout_height="60dp"/>
+            <ImageView
+                android:layout_weight="1"
+                android:id="@+id/prodView"
+                android:layout_width="60dp"
+                android:layout_height="60dp"/>
+            <ImageView
+                android:layout_weight="0.5"
+                android:id="@+id/nextView"
+                android:src="@drawable/slidernext"
+                android:layout_width="60dp"
+                android:layout_height="60dp"/>
+        </TableRow>
+        <TextView
+            android:id="@+id/priceView"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+        <TableRow>
+            <ImageView
+                android:id="@+id/wishButtonView"
+                android:layout_weight="1"
+                android:src="@drawable/wish"
+                android:layout_height="80dp"
+                android:layout_width="80dp"/>
+            <TextView
+                android:id="@+id/symbolView"
+                android:layout_height="wrap_content"
+                android:text="$"
+                android:layout_weight="0.1"/>
+            <EditText
+                android:id="@+id/bidTxt"
+                android:layout_weight="1"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:hint="Make an offer!"/>
+        </TableRow>
+
+    </TableLayout>
+</FrameLayout>
