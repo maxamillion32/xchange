@@ -72,12 +72,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_products:
                 fragmentClass = FragmentProduct.class;
                 break;
+            case R.id.nav_wish:
+                fragmentClass = FragmentProduct.class;
+                break;
+            case R.id.nav_explore:
+                fragmentClass = FragmentExplore.class;
+                break;
             case R.id.logout:
                 signOut();
                 break;
             case R.id.update_user:
-                Intent intent = new Intent(this.getApplicationContext(), RegisterUser.class);
-                startActivity(intent);
+                fragmentClass = FragmentProfile.class;
                 break;
             default:
                 break;
@@ -88,13 +93,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragment = (Fragment) fragmentClass.newInstance();
                 fragment.setArguments(bundle);
 
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.content_fragments, fragment).commit();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        if(id != R.id.logout) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.content_fragments, fragment).commit();
+        }
         return true;
     }
 
@@ -116,24 +122,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        navigationView.getMenu().getItem(1).setChecked(true);
+        navigationView.getMenu().getItem(0).setChecked(true);
     }
 
     public void initializeFragment(){
         //TODO add principal fragment
         Fragment fragment = null;
-        Class fragmentClass = null;
-        fragmentClass = FragmentProduct.class;
+        Class fragmentClass = FragmentExplore.class;
         Bundle bundle = new Bundle();
         try {
             if(fragmentClass != null){
                 fragment = (Fragment) fragmentClass.newInstance();
+                fragment.setArguments(bundle);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        fragment.setArguments(bundle);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.content_fragments, fragment).commit();

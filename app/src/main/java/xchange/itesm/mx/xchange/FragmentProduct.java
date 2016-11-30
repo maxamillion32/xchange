@@ -91,6 +91,7 @@ public class FragmentProduct extends Fragment {
                     try{
                         for (DataSnapshot productSnap : dataSnapshot.getChildren()) {
                             Product model = productSnap.getValue(Product.class);
+                            model.setId(productSnap.getKey());
                             if(model.getSellerKey().equals(user.getUid()))
                                 mProducts.add(model);
                         }

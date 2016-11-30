@@ -5,7 +5,7 @@ package xchange.itesm.mx.xchange;
  */
 
 public class Product {
-    public String id;
+    public String key;
     public String title;
     public int price;
     public String sellerKey;
@@ -24,6 +24,14 @@ public class Product {
         this.description = description;
         this.imagePath = imagePath;
         this.status = status;
+    }
+
+    public String getId() {
+        return key;
+    }
+
+    public void setId(String k) {
+        key= k;
     }
 
     public String getSellerKey() {

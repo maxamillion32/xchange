@@ -18,7 +18,7 @@ import java.util.List;
  * Created by erikiado on 11/30/16.
  */
 
-public class AdapterSellerProduct extends RecyclerView.Adapter<AdapterSellerProduct.ViewHolder> {
+public class AdapterCustomerProducts extends RecyclerView.Adapter<AdapterCustomerProducts.ViewHolder> {
     private List<Product> mDataSet;
     private String mId;
     private Context context;
@@ -49,7 +49,7 @@ public class AdapterSellerProduct extends RecyclerView.Adapter<AdapterSellerProd
      *
      * @param dataSet Message list
      */
-    public AdapterSellerProduct(Context cxt, List<Product> dataSet) {
+    public AdapterCustomerProducts(Context cxt, List<Product> dataSet) {
         mDataSet = dataSet;
         context = cxt;
     }
@@ -60,7 +60,7 @@ public class AdapterSellerProduct extends RecyclerView.Adapter<AdapterSellerProd
 
 //        if (viewType == CHAT_RIGHT) {
         v = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.rv_product_seller, parent, false);
+                .inflate(R.layout.rv_product_seller, parent, false);
 //        } else {
 //            v = LayoutInflater.from(parent.getContext())
 //                    .inflate(R.layout.list_item_chat_left, parent, false);
@@ -72,18 +72,18 @@ public class AdapterSellerProduct extends RecyclerView.Adapter<AdapterSellerProd
     @Override
     public int getItemViewType(int position) {
 //        if (mDataSet.get(position).getId().equals(mId))
-            return CHAT_RIGHT;
+        return CHAT_RIGHT;
 
 //        return CHAT_LEFT;
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(AdapterCustomerProducts.ViewHolder holder, int position) {
         final Product product = mDataSet.get(position);
         holder.background.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(context,ActivitySellerProductDetail.class);
+                Intent i = new Intent(context,ActivityCustomerProduct.class);
                 i.putExtra("productId",product.getId());
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(i);
