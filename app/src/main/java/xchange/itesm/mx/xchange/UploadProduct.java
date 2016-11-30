@@ -1,44 +1,60 @@
 package xchange.itesm.mx.xchange;
 
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.net.Uri;
-import android.os.Bundle;
-import android.os.IBinder;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-
-/**
- * Created by Miguel on 29/11/2016.
- */
 
 public class UploadProduct extends AppCompatActivity {
-    private static final String TAG = "MyUploadService";
-    private StorageReference mStorageRef;
-    private DatabaseReference mDatabaseRef;
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private FirebaseUser user;
+    private DatabaseReference mFirebaseDatabaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_upload_product);
 
-        //mStorageRef = FirebaseStorage.getInstance().getReference();
-        //mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
+        mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
+        user = mAuth.getCurrentUser();
 
-        //FirebaseStorage storage = FirebaseStorage.getInstance();
+        Toast.makeText(this, user.getUid(), Toast.LENGTH_SHORT).show();
+    }
+
+    public void uploadProduct(View v) {
+        EditText title = (EditText) findViewById(R.id.Title);
+        EditText price = (EditText) findViewById(R.id.Price);
+        EditText description = (EditText) findViewById(R.id.Description);
+
+        String titleVal = title.getText().toString();
+        String priceVal = price.getText().toString();
+        String descriptionVal = description.getText().toString();
+        String sellerKey = user.getUid();
+        String imagePath = "";
+        String status = "Available";
+
+        Product product = new Product(titleVal, Integer.parseInt(priceVal), sellerKey, descriptionVal,
+                imagePath, status);
+
+        DatabaseReference products = mFirebaseDatabaseReference.child("Products");
+        String key = mFirebaseDatabaseReference.child("Products").push().getKey();
+
+        try {
+            mFirebaseDatabaseReference.child("Products").child(key).setValue(product);
+            this.finish();
+        } catch(Exception e) {
+            Toast.makeText(this.getApplicationContext(), "Upload error", Toast.LENGTH_SHORT).show();
+        }
     }
 }
