@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Toolbar toolbar;
     private NavigationView navigationView;
     private ActionBar actionBar;
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
+                user = firebaseAuth.getCurrentUser();
             }
         };
 
@@ -47,14 +48,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         initializeToolbar();
         initializeDrawer();
         //initializeFragment();
-
-        String username = intent.getStringExtra("username");
-        String userId = intent.getStringExtra("userId");
     }
 
     protected void signOut() {
         try {
             mAuth.signOut();
+            Intent intent = new Intent(this.getApplicationContext(), ActivityLogin.class);
+            startActivity(intent);
+            this.finish();
         } catch (Exception e) {
             Toast.makeText(this.getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
         }
@@ -72,6 +73,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_products:
                 fragmentClass = FragmentProduct.class;
                 break;
+            case R.id.logout:
+                signOut();
+                break;
             default:
                 break;
         }
@@ -80,13 +84,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             if(fragmentClass != null){
                 fragment = (Fragment) fragmentClass.newInstance();
                 fragment.setArguments(bundle);
+
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.content_fragments, fragment).commit();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_fragments, fragment).commit();
 
         return true;
     }
