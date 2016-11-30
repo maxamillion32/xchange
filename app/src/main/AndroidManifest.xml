@@ -50,6 +50,8 @@
         <activity
             android:screenOrientation="portrait"
             android:name=".UploadProduct"></activity>
+        <activity android:name=".UploadProduct" />
+        <activity android:name=".RegisterUser"></activity>
     </application>
 
 </manifest>
