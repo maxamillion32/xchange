@@ -76,6 +76,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.logout:
                 signOut();
                 break;
+            case R.id.update_user:
+                Intent intent = new Intent(this.getApplicationContext(), RegisterUser.class);
+                startActivity(intent);
+                break;
             default:
                 break;
         }
