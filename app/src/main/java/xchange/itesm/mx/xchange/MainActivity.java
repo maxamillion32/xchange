@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
     private Toolbar toolbar;
+    Intent intent;
     private NavigationView navigationView;
     private ActionBar actionBar;
     private FirebaseUser user;
@@ -77,7 +79,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 signOut();
                 break;
             case R.id.update_user:
-                Intent intent = new Intent(this.getApplicationContext(), RegisterUser.class);
+                intent = new Intent(this.getApplicationContext(), RegisterUser.class);
+                startActivity(intent);
+                break;
+            case R.id.see_products:
+                intent = new Intent(this.getApplicationContext(), ViewProducts.class);
                 startActivity(intent);
                 break;
             default:

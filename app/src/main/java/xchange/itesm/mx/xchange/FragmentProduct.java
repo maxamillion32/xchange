@@ -48,6 +48,7 @@ public class FragmentProduct extends Fragment {
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
+        user = mAuth.getCurrentUser();
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override

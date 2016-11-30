@@ -9,6 +9,9 @@
             android:id="@+id/nav_products"
             android:title="My products" />
         <item
+            android:id="@+id/see_products"
+            android:title="See products" />
+        <item
             android:id="@+id/update_user"
             android:title="Settings" />
         <item
