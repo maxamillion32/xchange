@@ -20,7 +20,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SplashScreen"
             android:theme="@style/AppTheme.NoActionBar">
@@ -39,7 +39,8 @@
         <activity
             android:name=".ContactSeller"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".UploadProduct"></activity>
+        <activity android:name=".UploadProduct" />
+        <activity android:name=".RegisterUser"></activity>
     </application>
 
 </manifest>

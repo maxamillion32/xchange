@@ -9,6 +9,9 @@
             android:id="@+id/nav_products"
             android:title="My products" />
         <item
+            android:id="@+id/update_user"
+            android:title="Settings" />
+        <item
             android:id="@+id/logout"
             android:title="Logout" />
     </group>
