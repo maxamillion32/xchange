@@ -2,6 +2,7 @@ package xchange.itesm.mx.xchange;
 
 import android.media.Image;
 import android.os.Handler;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -70,6 +71,27 @@ public class ViewProducts extends AppCompatActivity {
         Log.i("INFOOO","Size: "+size);
     }
 
+    public void visited(DataSnapshot dataSnapshot){
+        DatabaseReference users = mFirebaseDatabaseReference.child("Visits");
+        String key = users.push().getKey();
+        if(dataSnapshot.getValue().toString().contains("isit")) {
+            for (DataSnapshot messageSnapshot : dataSnapshot.getChildren()) {
+                //Si ya se registro cómo visto
+                String kk=keys[a];
+                if ( (String) messageSnapshot.child("productKey").getValue()==kk){
+
+                }else {
+                    Visits visits = new Visits(user.getUid(), keys[a], false, 0, "In progress");
+                    try {
+                        mFirebaseDatabaseReference.child("Users").child(key).setValue(visits);
+
+                    } catch (Exception e) {
+                    }
+                }
+            }
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,6 +113,7 @@ public class ViewProducts extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 initiate(dataSnapshot);
+                visited(dataSnapshot);
                 a = r.nextInt(3);
                 Picasso.with(context).load(urls[a]).into(prod);
                 wanted.setText("$" + price[a]);
@@ -99,16 +122,19 @@ public class ViewProducts extends AppCompatActivity {
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 initiate(dataSnapshot);
+                visited(dataSnapshot);
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 initiate(dataSnapshot);
+                visited(dataSnapshot);
             }
 
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
                 initiate(dataSnapshot);
+                visited(dataSnapshot);
             }
 
             @Override
@@ -149,14 +175,7 @@ public class ViewProducts extends AppCompatActivity {
             }
         });
 
-        DatabaseReference users = mFirebaseDatabaseReference.child("Visits");
-        String key = mFirebaseDatabaseReference.child("Visits").push().getKey();
-        Visits visits=new Visits(user.getUid(),keys[a],false, 0,"In progress");
-        try {
-            mFirebaseDatabaseReference.child("Users").child(key).setValue(visits);
 
-        } catch (Exception e) {
-        }
 
 
 

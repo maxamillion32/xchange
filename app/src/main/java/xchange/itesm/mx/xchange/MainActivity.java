@@ -86,6 +86,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 intent = new Intent(this.getApplicationContext(), ViewProducts.class);
                 startActivity(intent);
                 break;
+            case R.id.nav_cerca:
+                intent = new Intent(this.getApplicationContext(), WishList.class);
+                startActivity(intent);
+                break;
             default:
                 break;
         }

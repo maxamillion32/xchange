@@ -21,8 +21,13 @@ public class AllData {
     private boolean[] sellerAccepted;
     private String[] confirmDone;
 
-    public AllData(){
 
+    public void refreshAllData(){
+        if ()
+    }
+
+    public AllData(){
+        refreshAllData();
         cost=new int[]{7500,13200,750,590};
         article= new String[]{
                 "https://images-na.ssl-images-amazon.com/images/I/51OwBkohn2L._SX425_.jpg",     //bicycle
