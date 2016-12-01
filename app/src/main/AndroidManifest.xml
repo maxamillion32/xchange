@@ -61,6 +61,7 @@
         <activity
             android:name=".ActivityCustomerProduct"
             android:label="@string/title_activity_customer_product"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

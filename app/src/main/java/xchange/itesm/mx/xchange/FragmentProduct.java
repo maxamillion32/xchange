@@ -14,6 +14,8 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -57,10 +59,10 @@ public class FragmentProduct extends Fragment {
     static final int REQUEST_GALLERY_IMAGE = 2;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         baseView = inflater.inflate(R.layout.fragment_fragment_product, container, false);
-        context = this.getActivity().getBaseContext();
+        context = this.getActivity();
 
         mRecyclerView = (RecyclerView) baseView.findViewById(R.id.rvProducts);
         mProducts = new ArrayList<>();
@@ -86,10 +88,11 @@ public class FragmentProduct extends Fragment {
                         for (DataSnapshot productSnap : dataSnapshot.getChildren()) {
                             Product model = productSnap.getValue(Product.class);
                             model.setId(productSnap.getKey());
-                            if(model.getSellerKey().equals(user.getUid()))
-                                mProducts.add(model);
+                            if(model.getSellerKey().equals(user.getUid())){
+                                if(!mProducts.contains(model))
+                                    mProducts.add(model);
+                            }
                         }
-
                         mRecyclerView.scrollToPosition(0);
                         mAdapter.notifyItemInserted(0);
                     } catch (Exception ex) {
@@ -110,8 +113,32 @@ public class FragmentProduct extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context.getApplicationContext(), UploadProduct.class);
-                startActivity(intent);
+                mFirebaseDatabaseReference.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        boolean x = false;
+                        for (DataSnapshot userSnap : dataSnapshot.getChildren()) {
+                            User model = userSnap.getValue(User.class);
+//                            model.setUserId(userSnap.getKey());
+                            if(model.getUserId().equals(user.getUid())){
+                                Intent intent = new Intent(context.getApplicationContext(), UploadProduct.class);
+                                startActivity(intent);
+                                x = true;
+                            }
+                        }
+                        if(!x){
+                            Toast.makeText(context,"Llenar tus datos del perfil para poder subir productos",Toast.LENGTH_LONG).show();
+                        }
+//                        FragmentManager fragmentManager = getSupportFragmentManager();
+//                        fragmentManager.beginTransaction().replace(R.id.content_fragments, fragment).commit();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
             }
         });
 

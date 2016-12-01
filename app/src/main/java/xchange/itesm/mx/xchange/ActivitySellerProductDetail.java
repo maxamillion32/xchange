@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -41,8 +42,11 @@ public class ActivitySellerProductDetail extends AppCompatActivity {
                         Product model = dataSnapshot.getValue(Product.class);
                         ImageView img = (ImageView)findViewById(R.id.iv_product_seller_image);
                         if(!model.getImagePath().equals(""))
-                            Picasso.with(context).load(model.getImagePath()).resize(150,150).centerInside().into(img);
+                            Picasso.with(context).load(model.getImagePath()).resize(300,300).centerInside().into(img);
 
+                        ((TextView)findViewById(R.id.product_name)).setText(model.getTitle());
+                        ((TextView)findViewById(R.id.product_description)).setText(model.getDescription());
+                        ((TextView)findViewById(R.id.product_price)).setText(String.valueOf(model.getPrice()));
                     } catch (Exception ex) {
                         Log.e("TAG1", ex.getMessage());
 
