@@ -50,7 +50,127 @@
             android:layout_height="wrap_content"
             android:id="@+id/product_description"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_gravity="left"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:layout_margin="16dp"
+                android:layout_height="wrap_content"
+                android:text="BIDS"/>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="0.3"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:layout_margin="16dp"
+                    android:layout_height="wrap_content"
+                    android:text="Erick Cruz"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="0.3"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:layout_margin="16dp"
+                    android:layout_height="wrap_content"
+                    android:text="$1500"/>
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="#00FF00"
+                    android:text="Aceptar"
+                    android:layout_weight="0.2"/>
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="#FF0000"
+                    android:text="Rechazar"
+                    android:layout_weight="0.2"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="0.3"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:layout_margin="16dp"
+                    android:layout_height="wrap_content"
+                    android:text="Jorge Cruz"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="0.3"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:layout_margin="16dp"
+                    android:layout_height="wrap_content"
+                    android:text="$1000"/>
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="#00FF00"
+                    android:text="Aceptar"
+                    android:layout_weight="0.2"/>
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="#FF0000"
+                    android:text="Rechazar"
+                    android:layout_weight="0.2"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="0.3"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:layout_margin="16dp"
+                    android:layout_height="wrap_content"
+                    android:text="Pedro Martinez"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="0.3"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:layout_margin="16dp"
+                    android:layout_height="wrap_content"
+                    android:text="$2000"/>
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="#00FF00"
+                    android:text="Aceptar"
+                    android:layout_weight="0.2"/>
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="#FF0000"
+                    android:text="Rechazar"
+                    android:layout_weight="0.2"/>
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>
